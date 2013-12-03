@@ -11,7 +11,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	
 	private ArrayList<IMouseNoticeable> mouseListeners = new ArrayList<IMouseNoticeable>();
 	
-	public boolean[] keys = new boolean[256];
+	public boolean[] keys = new boolean[1024];
 	
 	public boolean isDown(int keyCode){
 		return keys[keyCode];
