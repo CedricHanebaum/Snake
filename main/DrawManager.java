@@ -20,7 +20,7 @@ public class DrawManager {
 	}
 	
 	public void removeFromDrawList(IDrawable d){
-		
+		drawList.remove(d);
 	}
 
 }

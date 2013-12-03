@@ -9,7 +9,6 @@ public class SnakeGame implements ITickable{
 	private Food fressen;
 	private ArrayList<Snake> schlange;
 	private short snake_direction = 1;
-	private short block = 0;
 	private boolean start = true;
 	private int points = 0;
 	private World world;

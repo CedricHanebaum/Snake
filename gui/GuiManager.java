@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.event.KeyEvent;
-
 import main.DrawManager;
 import main.Game;
 import main.GuiMain;
@@ -13,9 +11,9 @@ public class GuiManager {
 	private Game game;
 	private DrawManager drawManager;
 	
-	private Gui mainMenu = new GuiMain(0, 0, 800, 600, KeyEvent.VK_ESCAPE, KeyEvent.VK_Q, this);
-	private Gui optionsMenu = new GuiOptions(0, 0, 800, 600, 0, 0, this);
-	private Gui scoreGui = new GuiScore(300, 200, 200, 400, 0, 0, this);
+	private Gui mainMenu = new GuiMain(0, 0, 800, 600, this);
+	private Gui optionsMenu = new GuiOptions(0, 0, 800, 600, this);
+	private Gui scoreGui = new GuiScore(300, 200, 200, 400, this);
 	
 	private Gui activeGui;
 	
@@ -24,10 +22,6 @@ public class GuiManager {
 		this.game = game;
 		this.drawManager = drawManager;
 		activeGui = null;
-		
-		this.game.addToUpdateList(mainMenu);
-		this.game.addToUpdateList(optionsMenu);
-		this.game.addToUpdateList(scoreGui);
 		
 		this.drawManager.addToDrawList(mainMenu);
 		this.drawManager.addToDrawList(optionsMenu);

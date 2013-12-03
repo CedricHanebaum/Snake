@@ -1,5 +1,10 @@
 package main;
 
+import gui.Gui;
+import gui.GuiButton;
+import gui.GuiLabel;
+import gui.GuiManager;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -8,15 +13,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import gui.Gui;
-import gui.GuiButton;
-import gui.GuiLabel;
-import gui.GuiManager;
-
 public class GuiOptions extends Gui {
 
-	public GuiOptions(int posX, int posY, int width, int heigth, int activateKey, int deactivateKey, GuiManager guiManager) {
-		super(posX, posY, width, heigth, activateKey, deactivateKey, guiManager);
+	public GuiOptions(int posX, int posY, int width, int heigth, GuiManager guiManager) {
+		super(posX, posY, width, heigth, guiManager);
 		
 		BufferedImage buttonImg = null;
 		

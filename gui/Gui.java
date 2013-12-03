@@ -9,22 +9,18 @@ import java.util.ArrayList;
 import main.Game;
 import main.IDrawable;
 import main.IMouseNoticeable;
-import main.ITickable;
 
-public abstract class Gui implements ITickable, IDrawable, IMouseNoticeable{
+public abstract class Gui implements IDrawable, IMouseNoticeable {
 	
 	protected BufferedImage background;
 	private Rectangle rect;
-	private int activateKey, deactivateKey;
 	private boolean visible;
 	private ArrayList<GuiComponent> components = new ArrayList<GuiComponent>();
 	protected GuiManager guiManager;
 
-	public Gui(int posX, int posY, int width, int heigth, int activateKey, int deactivateKey, GuiManager guiManager) {
+	public Gui(int posX, int posY, int width, int heigth, GuiManager guiManager) {
 		rect = new Rectangle(posX, posY, width, heigth);
 		this.guiManager = guiManager;
-		this.activateKey = activateKey;
-		this.deactivateKey = deactivateKey;
 		visible = false;
 		Game.inputManager.addListener(this);
 	}
@@ -62,16 +58,6 @@ public abstract class Gui implements ITickable, IDrawable, IMouseNoticeable{
 			for(GuiComponent c: components){
 				c.draw(g);
 			}
-		}
-	}
-
-	@Override
-	public void update(long delta) {
-		if(Game.inputManager.isDown(activateKey)){
-			visible = true;
-		}
-		if(Game.inputManager.isDown(deactivateKey)){
-			visible = false;
 		}
 	}
 

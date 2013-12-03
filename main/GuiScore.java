@@ -12,13 +12,11 @@ import javax.swing.plaf.FontUIResource;
 public class GuiScore extends Gui {
 	
 	private int score;
-	private long lastDelta;
-	
 	private GuiLabel gameOverLbl;
 	private GuiLabel scoreLbl;
 
-	public GuiScore(int posX, int posY, int width, int heigth, int activateKey, int deactivateKey, GuiManager guiManager) {
-		super(posX, posY, width, heigth, activateKey, deactivateKey, guiManager);
+	public GuiScore(int posX, int posY, int width, int heigth, GuiManager guiManager) {
+		super(posX, posY, width, heigth, guiManager);
 		
 		gameOverLbl = new GuiLabel(400, 220, 200, 50, 0, "GameOver", this);
 		gameOverLbl.setColor(Color.RED);
@@ -43,10 +41,7 @@ public class GuiScore extends Gui {
 
 	}
 	
-	public void update(long delta){
-		super.update(delta);
-		
-	}
+	public void update(long delta) {}
 
 	@Override
 	public int getPriority() {

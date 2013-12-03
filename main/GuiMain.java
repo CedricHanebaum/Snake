@@ -14,8 +14,8 @@ import javax.imageio.ImageIO;
 public class GuiMain extends Gui {
 	
 
-	public GuiMain(int posX, int posY, int width, int heigth, int activateKey, int deactivateKey, GuiManager guiManager) {
-		super(posX, posY, width, heigth, activateKey, deactivateKey, guiManager);
+	public GuiMain(int posX, int posY, int width, int heigth, GuiManager guiManager) {
+		super(posX, posY, width, heigth, guiManager);
 		
 		BufferedImage buttonBg = null;
 		try {
