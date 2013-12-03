@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class Food extends World implements IDrawable
 {
 	World world;
-	int posx, posy, width, height;
+	private int posx, posy, width, height;
 	public Food(World world, int posx, int posy, int width, int height)
 	{
 		this.world = world;
@@ -15,11 +15,15 @@ public class Food extends World implements IDrawable
 	}
 	public void draw(Graphics g)
 	{
-		g.drawImage(this.world.fress, posx, posy, width, height, null);
+		g.drawImage(this.world.fress, this.posx, this.posy, width, height, null);
 	}
 	public void setPosx(int posx)
 	{
 		this.posx = posx;
+	}
+	public void setPosy(int posy)
+	{
+		this.posy = posy;
 	}
 	public int getPosx()
 	{
@@ -31,6 +35,6 @@ public class Food extends World implements IDrawable
 	}
 	@Override
 	public int getPriority() {
-		return 4;
+		return 6;
 	}
 }

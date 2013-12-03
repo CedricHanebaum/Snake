@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 public class Game extends JPanel implements Runnable {
 
 	private ArrayList<ITickable> updateList = new ArrayList<ITickable>();
+	private ArrayList<ITickable> tempUpdateList = new ArrayList<ITickable>();
 	private DrawManager drawManager = new DrawManager();
 
 	public static InputManager inputManager;
@@ -42,7 +43,10 @@ public class Game extends JPanel implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-
+	public DrawManager getDrawManager()
+	{
+		return this.drawManager;
+	}
 	@Override
 	public void run() {
 		this.init();
@@ -66,6 +70,10 @@ public class Game extends JPanel implements Runnable {
 		for (ITickable e: updateList) {
 			e.update(delta);
 		}
+		for(ITickable e: tempUpdateList){
+			updateList.add(e);
+		}
+		tempUpdateList = new ArrayList<ITickable>();
 	}
 
 	private void init() {
@@ -81,6 +89,10 @@ public class Game extends JPanel implements Runnable {
 		snakeGame.reset();
 	}
 
+	public GuiManager getGuiManager()
+	{
+		return this.guiManager;
+	}
 	public void closeGame() {
 		frame.dispose();
 		running = false;
@@ -96,7 +108,7 @@ public class Game extends JPanel implements Runnable {
 	}
 
 	public void addToUpdateList(ITickable tick) {
-		updateList.add(tick);
+		tempUpdateList.add(tick);
 	}
 
 	public void removeFormUpdateList(ITickable tick) {

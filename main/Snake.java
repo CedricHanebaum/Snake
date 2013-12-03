@@ -9,7 +9,8 @@ public class Snake extends World implements IDrawable, ITickable
 	private int lastpos[] = new int[2];
 	private int speedf = 5;
 	private SnakeGame sg;
-	public Snake(int posx, int posy, int width, int height, World welt, SnakeGame sg)
+	private Game game;
+	public Snake(int posx, int posy, int width, int height, World welt, SnakeGame sg, Game game)
 	{
 		this.posx = posx;
 		this.posy = posy;
@@ -19,6 +20,9 @@ public class Snake extends World implements IDrawable, ITickable
 		this.lastpos[0] = posx;
 		this.lastpos[1] = posy;
 		this.sg = sg;
+		this.game = game;
+		game.getDrawManager().addToDrawList(this);
+		game.addToUpdateList(this);
 	}
 	public int getPriority()
 	{
@@ -30,11 +34,11 @@ public class Snake extends World implements IDrawable, ITickable
 	}
 	public void update(long delta)
 	{
+		move();
 	}
 	public void draw(Graphics g)
 	{
 		g.drawImage(this.welt.schnake, posx, posy, width, height, null);
-		move();
 	}
 	public int getPosx()
 	{

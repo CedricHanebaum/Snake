@@ -14,6 +14,7 @@ public class Background extends World implements IDrawable, ITickable {
 		this.posy = posy;
 		this.width = width;
 		this.height = height;
+		this.visible = true;
 	}
 
 	public void setVisible(boolean visible) {
