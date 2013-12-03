@@ -22,25 +22,14 @@ public class SnakeGame implements ITickable{
 
 	public SnakeGame(Game game, DrawManager drawManager) {
 		this.game = game;
+		this.game.addToUpdateList(this);
+		guiManager = this.game.getGuiManager();
 		this.drawManager = drawManager;
 		
 		world = new World();
 		bg = new Background(world, 0, 0, 800, 600);
 		this.game.addToUpdateList(bg);
 		this.drawManager.addToDrawList(bg);
-		
-		fressen = new Food(world, (int) (Math.random() * 750) + 10, (int) (Math.random() * 550) + 10, 18, 18);
-		this.drawManager.addToDrawList(fressen);
-		
-		
-		schlange = new ArrayList<Snake>();
-		schlange.add(new Snake(400, 284, 25, 25, world, this));
-		Snake temp;
-		for (int i = 0; i < 16; i++) {
-			temp = new Snake(400 + (i + 1) * 15, 284, 25, 25, world, this);
-			schlange.add(temp);
-			temp.setVorherige(schlange.get(i));
-		}
 	}
 
 	public void checkCollision() {
@@ -60,16 +49,16 @@ public class SnakeGame implements ITickable{
 		}
 		diff += Math.abs(posx - fressen.getPosx());
 		diff += Math.abs(posy - fressen.getPosy());
+		//System.out.println(diff);
 		if (diff < 11)
 			eat();
 	}
 
 	public void eat() {
-		fressen.setPosx(1000);
-		fressen = new Food(world, (int) (Math.random() * 750) + 10,
-				(int) (Math.random() * 550) + 10, 18, 18);
+		fressen.setPosx((int) (Math.random() * 750) + 10);
+		fressen.setPosy((int) (Math.random() * 550) + 10);
 		Snake temp = schlange.get(schlange.size() - 1);
-		Snake neu = new Snake(temp.getPosx(), temp.getPosy(), 25, 25, world, this);
+		Snake neu = new Snake(temp.getPosx(), temp.getPosy(), 25, 25, world, this, game);
 		schlange.add(neu);
 		neu.setVorherige(temp);
 		points += 10;
@@ -113,13 +102,14 @@ public class SnakeGame implements ITickable{
 	public void reset() {
 		world = new World();
 		bg = new Background(world, 0, 0, 800, 600);
-		fressen = new Food(world, (int) (Math.random() * 750) + 10,
-				(int) (Math.random() * 550) + 10, 18, 18);
+		bg.setVisible(true);
+		fressen = new Food(world, (int) (Math.random() * 750) + 10, (int) (Math.random() * 550) + 10, 18, 18);
+		this.drawManager.addToDrawList(fressen);
 		schlange = new ArrayList<Snake>();
-		schlange.add(new Snake(400, 284, 25, 25, world, this));
+		schlange.add(new Snake(400, 284, 25, 25, world, this, game));
 		Snake temp;
 		for (int i = 0; i < 16; i++) {
-			temp = new Snake(400 + (i + 1) * 15, 284, 25, 25, world, this);
+			temp = new Snake(400 + (i + 1) * 15, 284, 25, 25, world, this, game);
 			schlange.add(temp);
 			temp.setVorherige(schlange.get(i));
 		}

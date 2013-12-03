@@ -50,7 +50,7 @@ public class GuiScore extends Gui {
 
 	@Override
 	public int getPriority() {
-		return 1;
+		return 15;
 	}
 
 }
