@@ -48,7 +48,7 @@ public class GuiOptions extends Gui {
 
 	@Override
 	public int getPriority() {
-		return 1;
+		return 42;
 	}
 
 }

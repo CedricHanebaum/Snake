@@ -5,6 +5,7 @@ import main.Game;
 import main.GuiMain;
 import main.GuiOptions;
 import main.GuiScore;
+import main.ITickable;
 
 public class GuiManager {
 	
@@ -23,6 +24,8 @@ public class GuiManager {
 		this.drawManager = drawManager;
 		activeGui = null;
 		
+		this.game.addToUpdateList((ITickable) mainMenu);
+
 		this.drawManager.addToDrawList(mainMenu);
 		this.drawManager.addToDrawList(optionsMenu);
 		this.drawManager.addToDrawList(scoreGui);

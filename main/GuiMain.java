@@ -5,13 +5,14 @@ import gui.GuiButton;
 import gui.GuiManager;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class GuiMain extends Gui {
+public class GuiMain extends Gui implements ITickable {
 	
 
 	public GuiMain(int posX, int posY, int width, int heigth, GuiManager guiManager) {
@@ -54,7 +55,14 @@ public class GuiMain extends Gui {
 
 	@Override
 	public int getPriority() {
-		return 1;
+		return 42;
+	}
+
+	@Override
+	public void update(long delta) {
+		if (Game.inputManager.isDown(KeyEvent.VK_ESCAPE)) {
+			guiManager.showMainMenu();
+		}
 	}
 
 }

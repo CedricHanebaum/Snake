@@ -43,10 +43,7 @@ public class Game extends JPanel implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-	public DrawManager getDrawManager()
-	{
-		return this.drawManager;
-	}
+
 	@Override
 	public void run() {
 		this.init();
@@ -89,10 +86,10 @@ public class Game extends JPanel implements Runnable {
 		snakeGame.reset();
 	}
 
-	public GuiManager getGuiManager()
-	{
+	public GuiManager getGuiManager() {
 		return this.guiManager;
 	}
+
 	public void closeGame() {
 		frame.dispose();
 		running = false;
@@ -113,6 +110,14 @@ public class Game extends JPanel implements Runnable {
 
 	public void removeFormUpdateList(ITickable tick) {
 		updateList.remove(tick);
+	}
+
+	public DrawManager getDrawManager() {
+		return this.drawManager;
+	}
+
+	public SnakeGame getGame() {
+		return snakeGame;
 	}
 
 	public static void main(String[] args) {

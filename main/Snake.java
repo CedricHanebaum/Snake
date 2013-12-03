@@ -21,8 +21,8 @@ public class Snake extends World implements IDrawable, ITickable
 		this.lastpos[1] = posy;
 		this.sg = sg;
 		this.game = game;
-		game.getDrawManager().addToDrawList(this);
-		game.addToUpdateList(this);
+		this.game.getDrawManager().addToDrawList(this);
+		this.game.addToUpdateList(this);
 	}
 	public int getPriority()
 	{
