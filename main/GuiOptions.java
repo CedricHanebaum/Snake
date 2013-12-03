@@ -21,8 +21,8 @@ public class GuiOptions extends Gui {
 		BufferedImage buttonImg = null;
 		
 		try {
-			this.background = ImageIO.read(new File("MainMenuBG.png"));
-			buttonImg = ImageIO.read(new File("Button.png"));
+			this.background = ImageIO.read(new File("img" + File.separator + "MainMenuBG.png"));
+			buttonImg = ImageIO.read(new File("img" + File.separator + "Button.png"));
 		} catch (IOException e) {}
 		
 		GuiLabel header = new GuiLabel(500, 80, 150, 30, -1, "Options", this);

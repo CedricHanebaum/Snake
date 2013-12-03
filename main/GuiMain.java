@@ -20,8 +20,8 @@ public class GuiMain extends Gui implements ITickable {
 		
 		BufferedImage buttonBg = null;
 		try {
-			buttonBg = ImageIO.read(new File("Button.png"));
-			this.background = ImageIO.read(new File("MainMenuBG.png"));
+			buttonBg = ImageIO.read(new File("img" + File.separator + "Button.png"));
+			this.background = ImageIO.read(new File("img" + File.separator + "MainMenuBG.png"));
 		} catch (IOException e) {e.printStackTrace();}
 		
 		GuiButton startGameBtn = new GuiButton(posX + 30, posY + 160, 300, 60, 0, "Start Game!", buttonBg, this);

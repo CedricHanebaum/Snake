@@ -14,9 +14,9 @@ public class World
 	{
 		try
 		{
-			back = ImageIO.read(new File("hintergrund.png"));
-			fress = ImageIO.read(new File("fresschen.png"));
-			schnake = ImageIO.read(new File("schlange.png"));
+			back = ImageIO.read(new File("img" + File.separator + "hintergrund.png"));
+			fress = ImageIO.read(new File("img" + File.separator + "fresschen.png"));
+			schnake = ImageIO.read(new File("img" + File.separator + "schlange.png"));
 		}
 		catch(Exception e)
 		{
