@@ -4,14 +4,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DrawManager {
+import javax.swing.JPanel;
+
+public class DrawManager extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<IDrawable> drawList = new ArrayList<IDrawable>();
 	
-	public void draw(Graphics g){
-		for(IDrawable d: drawList){
-			d.draw(g);
-		}
+	public void draw() {
+		this.repaint();
 	}
 	
 	public void addToDrawList(IDrawable d){
@@ -21,6 +22,13 @@ public class DrawManager {
 	
 	public void removeFromDrawList(IDrawable d){
 		drawList.remove(d);
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		for (IDrawable d: drawList) {
+			d.draw(g);
+		}
 	}
 
 }

@@ -2,19 +2,15 @@ package main;
 
 import gui.GuiManager;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-public class Game extends JPanel implements Runnable {
+public class Game implements Runnable {
 
 	private ArrayList<ITickable> updateList = new ArrayList<ITickable>();
 	private ArrayList<ITickable> tempUpdateList = new ArrayList<ITickable>();
-	private DrawManager drawManager = new DrawManager();
+	private DrawManager drawManager;
 
 	public static InputManager inputManager;
 
@@ -24,21 +20,28 @@ public class Game extends JPanel implements Runnable {
 	private JFrame frame;
 	private Thread thread;
 
-	private static final long serialVersionUID = 1L;
-
 	private boolean running;
 	private long lastTick;
 	private long delta;
 	static boolean started = false;
 
-	public Game(JFrame frame) {
-		inputManager = new InputManager();
-		this.frame = frame;
-		this.guiManager = new GuiManager(this, drawManager);
+	public Game() {
+		this.frame = new JFrame("Snake");
+		this.frame.setSize(800, 600);
+		this.frame.setResizable(false);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setVisible(true);
 
+		this.drawManager = new DrawManager();
+		this.frame.add(drawManager);
+
+
+		inputManager = new InputManager();
 		this.frame.addKeyListener(inputManager);
-		this.addMouseListener(inputManager);
-		this.addMouseMotionListener(inputManager);
+		this.drawManager.addMouseListener(inputManager);
+		this.drawManager.addMouseMotionListener(inputManager);
+
+		this.guiManager = new GuiManager(this, drawManager);
 
 		thread = new Thread(this);
 		thread.start();
@@ -50,7 +53,7 @@ public class Game extends JPanel implements Runnable {
 		while (running) {
 			this.doLoop();
 			this.calculateDelta();
-			this.repaint();
+			drawManager.draw();
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {}
@@ -95,15 +98,6 @@ public class Game extends JPanel implements Runnable {
 		running = false;
 	}
 
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
-		drawManager.draw(g);
-
-		g.setColor(Color.RED);
-		// g.drawString("Delta:" + delta, 20, 20);
-	}
-
 	public void addToUpdateList(ITickable tick) {
 		tempUpdateList.add(tick);
 	}
@@ -121,17 +115,7 @@ public class Game extends JPanel implements Runnable {
 	}
 
 	public static void main(String[] args) {
-
-		JFrame f = new JFrame("Snake!");
-		Game g = new Game(f);
-
-		g.setPreferredSize(new Dimension(800, 600));;
-		f.setSize(800, 600);
-		f.setResizable(false);
-		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.add(g);
-
+		new Game();
 	}
 
 }
