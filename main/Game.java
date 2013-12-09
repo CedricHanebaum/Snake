@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 public class Game implements Runnable {
 
 	private ArrayList<ITickable> updateList = new ArrayList<ITickable>();
-	private ArrayList<ITickable> tempUpdateList = new ArrayList<ITickable>();
+	private ArrayList<ITickable> tempAddUpdateList = new ArrayList<ITickable>();
+	private ArrayList<ITickable> tempRemoveUpdateList = new ArrayList<ITickable>();
 	private DrawManager drawManager;
 
 	public static InputManager inputManager;
@@ -34,7 +35,6 @@ public class Game implements Runnable {
 
 		this.drawManager = new DrawManager();
 		this.frame.add(drawManager);
-
 
 		inputManager = new InputManager();
 		this.frame.addKeyListener(inputManager);
@@ -70,10 +70,14 @@ public class Game implements Runnable {
 		for (ITickable e: updateList) {
 			e.update(delta);
 		}
-		for(ITickable e: tempUpdateList){
+		for(ITickable e: tempAddUpdateList){
 			updateList.add(e);
 		}
-		tempUpdateList = new ArrayList<ITickable>();
+		for (ITickable e: tempRemoveUpdateList) {
+			updateList.remove(e);
+		}
+		tempRemoveUpdateList = new ArrayList<ITickable>();
+		tempAddUpdateList = new ArrayList<ITickable>();
 	}
 
 	private void init() {
@@ -99,11 +103,11 @@ public class Game implements Runnable {
 	}
 
 	public void addToUpdateList(ITickable tick) {
-		tempUpdateList.add(tick);
+		tempAddUpdateList.add(tick);
 	}
 
 	public void removeFormUpdateList(ITickable tick) {
-		updateList.remove(tick);
+		tempRemoveUpdateList.remove(tick);
 	}
 
 	public DrawManager getDrawManager() {

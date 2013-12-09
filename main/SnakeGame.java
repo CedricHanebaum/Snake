@@ -21,14 +21,45 @@ public class SnakeGame implements ITickable{
 
 	public SnakeGame(Game game, DrawManager drawManager) {
 		this.game = game;
-		this.game.addToUpdateList(this);
-		guiManager = this.game.getGuiManager();
+		this.guiManager = this.game.getGuiManager();
 		this.drawManager = drawManager;
-		
+
+		this.startGame();
+	}
+
+	private void startGame() {
+		this.game.addToUpdateList(this);
 		world = new World();
 		bg = new Background(world, 0, 0, 800, 600);
+		bg.setVisible(true);
+		fressen = new Food(world, (int) (Math.random() * 750) + 10, (int) (Math.random() * 550) + 10, 18, 18);
+
+		schlange = new ArrayList<Snake>();
+		schlange.add(new Snake(400, 284, 25, 25, world, this, game));
+		Snake temp;
+		for (int i = 0; i < 16; i++) {
+			temp = new Snake(400 + (i + 1) * 15, 284, 25, 25, world, this, game);
+			schlange.add(temp);
+			temp.setVorherige(schlange.get(i));
+		}
+		setSnake_direction((short) 1);
+		setStart(true);
+		points = 0;
+		gameover = false;
+		this.guiManager.closeActiveGui();
+
 		this.game.addToUpdateList(bg);
 		this.drawManager.addToDrawList(bg);
+		this.drawManager.addToDrawList(fressen);
+	}
+
+	public void closeGame() {
+		this.game.removeFormUpdateList(bg);
+		this.drawManager.removeFromDrawList(bg);
+		this.drawManager.removeFromDrawList(fressen);
+		for (Snake s: schlange) {
+			this.drawManager.removeFromDrawList(s);
+		}
 	}
 
 	public void checkCollision() {
@@ -99,24 +130,8 @@ public class SnakeGame implements ITickable{
 	}
 
 	public void reset() {
-		world = new World();
-		bg = new Background(world, 0, 0, 800, 600);
-		bg.setVisible(true);
-		fressen = new Food(world, (int) (Math.random() * 750) + 10, (int) (Math.random() * 550) + 10, 18, 18);
-		this.drawManager.addToDrawList(fressen);
-		schlange = new ArrayList<Snake>();
-		schlange.add(new Snake(400, 284, 25, 25, world, this, game));
-		Snake temp;
-		for (int i = 0; i < 16; i++) {
-			temp = new Snake(400 + (i + 1) * 15, 284, 25, 25, world, this, game);
-			schlange.add(temp);
-			temp.setVorherige(schlange.get(i));
-		}
-		setSnake_direction((short) 1);
-		setStart(true);
-		points = 0;
-		gameover = false;
-		this.guiManager.closeActiveGui();
+		this.closeGame();
+		this.startGame();
 	}
 
 	@Override
